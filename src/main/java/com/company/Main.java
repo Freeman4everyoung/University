@@ -9,12 +9,14 @@ import java.util.Scanner;
 
 
 public class Main {
-
+    public static  String db_url ="jdbc:postgresql://localhost:5432/university";
+    public static String  db_user ="postgres";
+    public static String db_pass ="freeman1997";
     private static void FindHeadOfDepartment(String str){
 
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/university",
-                    "postgres", "freeman1997");
+            Connection con = DriverManager.getConnection(db_url,
+                    db_user, db_pass);
 
             PreparedStatement stmt = con.prepareStatement("SELECT departments.name, departments.head_id, lectors.name FROM lectors, departments WHERE departments.head_id = lectors.id AND departments.name = ?");
             stmt.setString(1, str);
@@ -33,9 +35,8 @@ public class Main {
     private static void ShowDepartmentStatistic(String str){
         List<String> degreeList = new ArrayList<String>();
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/university",
-                    "postgres", "freeman1997");
-
+            Connection con = DriverManager.getConnection(db_url,
+                    db_user, db_pass);
             PreparedStatement stmt = con.prepareStatement("SELECT departments.name, departments.id, lectors.id, lectors.degree, lectors_departments.department_id, lectors_departments.lector_id " +
                     "FROM lectors, departments, lectors_departments " +
                     "WHERE departments.id = lectors_departments.department_id " +
@@ -78,8 +79,8 @@ public class Main {
 
     private static void AverageSalary(String str){
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/university",
-                    "postgres", "freeman1997");
+            Connection con = DriverManager.getConnection(db_url,
+                    db_user, db_pass);
 
             PreparedStatement stmt = con.prepareStatement("SELECT departments.name, departments.id, lectors.id, lectors.salary, lectors_departments.department_id, lectors_departments.lector_id " +
                     "FROM lectors, departments, lectors_departments " +
@@ -105,8 +106,8 @@ public class Main {
 
     private static void CountEmployee(String str){
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/university",
-                    "postgres", "freeman1997");
+            Connection con = DriverManager.getConnection(db_url,
+                    db_user, db_pass);
 
             PreparedStatement stmt = con.prepareStatement("SELECT departments.name, departments.id, lectors_departments.department_id " +
                     "FROM lectors_departments, departments " +
@@ -129,8 +130,8 @@ public class Main {
 
     private static void SearchByTemplate(String str){
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/university",
-                    "postgres", "freeman1997");
+            Connection con = DriverManager.getConnection(db_url,
+                    db_user, db_pass);
 
             PreparedStatement stmt = con.prepareStatement("SELECT lectors.name FROM lectors WHERE lectors.name LIKE '%"  + str + "%'");
 //            stmt.setString(1, str);
